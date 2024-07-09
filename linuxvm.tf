@@ -23,7 +23,12 @@ resource "azurerm_linux_virtual_machine" "vm" {
     sku       = "22_04-lts"
     version   = "latest"
   }
-   
+   custom_data = base64encode(<<-EOT
+    #!/bin/bash
+    sudo apt-get update
+    sudo apt-get install -y inetutils-ping
+  EOT
+  )
 
   disable_password_authentication = false
 }
